@@ -9,24 +9,14 @@ bool read_float_image(char *inputfile, float_image * img)
     
     FILE *pFile;
     pFile = fopen(inputfile,"rb");
-    if(pFile == NULL)
+    if(pFile == nullptr)
     {
         return false;
     }
-    else
-    {
-        size_t len = fread(img->get_data_pointer(),sizeof(float),imsize,pFile);
-        fclose(pFile);
+    size_t len = fread(img->get_data_pointer(),sizeof(float),imsize,pFile);
+    fclose(pFile);
         
-        if( len == 0 || ferror(pFile) || feof(pFile))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    return (len != 0 && !ferror(pFile) && !feof(pFile));
 }
 
 
@@ -38,25 +28,19 @@ bool write_image(char *outputfile, float_image * img)
     
     FILE *pFile;
     pFile = fopen(outputfile,"wb");
-    if(pFile == NULL)
+    if(pFile == nullptr)
     {
         return false;
     }
-    else 
-    {
-        fwrite(img->get_data_pointer(),sizeof(float),imsize,pFile);
-        fclose(pFile);
+    fwrite(img->get_data_pointer(),sizeof(float),imsize,pFile);
+    fclose(pFile);
         
-        if(ferror(pFile))
-        {
-            DEBUG_PRINTLN("Error writing image to disk!");
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+    if(ferror(pFile))
+    {
+        DEBUG_PRINTLN("Error writing image to disk!");
+        return false;
     }
+    return true;
 }
 
 bool write_image(char *outputfile, sharedptr<row_major_float_image> img)
@@ -65,22 +49,16 @@ bool write_image(char *outputfile, sharedptr<row_major_float_image> img)
 
     FILE *pFile;
     pFile = fopen(outputfile,"wb");
-    if(pFile == NULL)
+    if(pFile == nullptr)
     {
         return false;
     }
-    else
-    {
-        fwrite(img->get_data_pointer(),sizeof(float),imsize,pFile);
-        fclose(pFile);
+    fwrite(img->get_data_pointer(),sizeof(float),imsize,pFile);
+    fclose(pFile);
         
-        if(ferror(pFile))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+    if(ferror(pFile))
+    {
+        return false;
     }
+    return true;
 }

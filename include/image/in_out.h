@@ -60,21 +60,20 @@ template<class T> bool read_image(char *inputfile, float_image * img) //Implemen
     
     FILE *pFile;
     pFile = fopen(inputfile,"rb");
-    if(pFile == NULL)
+    if(pFile == nullptr)
     {
+        delete[] bild;
         return false;
     }
-    else
-    {
-        size_t len = fread(bild,sizeof(T),imsize,pFile);
-        fclose(pFile);
+    size_t len = fread(bild,sizeof(T),imsize,pFile);
+    fclose(pFile);
         
-        if( len == 0 || ferror(pFile) || feof(pFile))
-        {
-            return false;
-        }
+    if( len == 0 || ferror(pFile) || feof(pFile))
+    {
+        delete[] bild;
+        return false;
     }
-    
+
     //Jetzt das bild elementweise in floats casten
     float * imgdata = img->get_data_pointer();
     for(int i = 0; i < imsize; i++)
@@ -102,23 +101,22 @@ template<class T> bool read_image(char *inputfile, sharedptr<row_major_float_ima
     
     FILE *pFile;
     pFile = fopen(inputfile,"rb");
-    if(pFile == NULL)
+    if(pFile == nullptr)
     {
         DEBUG_PRINTLN("Error in in_out::read_image: Failed to open image (a)");
+        delete[] bild;
         return false;
     }
-    else
-    {
-        size_t len = fread(bild,sizeof(T),imsize,pFile);
-        fclose(pFile);
+    size_t len = fread(bild,sizeof(T),imsize,pFile);
+    fclose(pFile);
         
-        if( len == 0 || ferror(pFile) || feof(pFile))
-        {
-            DEBUG_PRINTLN("Error in in_out::read_image: Input length: "<<len);
-            return false;
-        }
+    if( len == 0 || ferror(pFile) || feof(pFile))
+    {
+        DEBUG_PRINTLN("Error in in_out::read_image: Input length: "<<len);
+        delete[] bild;
+        return false;
     }
-    
+
     //Jetzt das bild elementweise in floats casten
     float * imgdata = img->get_data_pointer();
     for(int i = 0; i < imsize; i++)

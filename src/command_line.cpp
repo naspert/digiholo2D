@@ -322,41 +322,46 @@ void command_line::calculate_gradient(int dim, std::string input_path, std::vect
  * release due to licensing reasons. Go to https://www.ljmu.ac.uk/about-us/faculties/faculty-of-technology-and-environment/general-engineering-research-institute/projects/phase-unwrapping
  * to obtain the code from its authors.
  */
-//void command_line::pixel_srncp(std::string input_path, std::vector<std::string> input_file, std::string output, int dimx, int dimy) {
-//    std::string input;
-//    std::vector<std::string>::iterator file_it;
-//    for (file_it = input_file.begin(); file_it != input_file.end(); ++file_it) {
-//        //Assemble input file path (and try to correct errors with ending backslashes)
-//        if (input_path.back() != '\\') {
-//            input_path += "\\";
-//        }
-//        input = input_path + (*file_it);
-//
-//        sharedptr<row_major_float_image> wrapped_img = create_row_major_float_image(dimx, dimy);
-//        wrapped_img->zero_fill();
-//        this->cl_read_image(input, wrapped_img); //Read the image dependent of the image type
-//
-//        sharedptr<row_major_float_image> unwrapped_img = create_row_major_float_image(dimx, dimy);
-//        //   sharedptr<f> unwrapped_img = create_row_major_float_image(dimx, dimy);
-//
-//        //     float_image * unwrapped_phi = new row_major_float_image(dimx, dimy);
-//        //   sharedptr<float_image> unwrappi = boost::static_pointer_cast<float_image>(unwrapped_img);
-//
-//        srncp_unwrapper my_unwrapper;
-//        debug_time *time = new debug_time();
-//        my_unwrapper.unwrap(wrapped_img.get(), unwrapped_img.get());
-//        DEBUG_PRINTLN("Pixel-based SRNCP took:");
-//        time->get_time();
-//        delete time;
-//        //   my_unwrapper->unwrap(wrappi.get(), unwrappi.get());
-//        std::string empty = "";
-//
-//        if (!write_image(create_filename(empty + "srncp", empty, input, output, dimx, dimy, std::vector<int>()), unwrapped_img.get())) {
-//            DEBUG_PRINTLN("Error: Could not save file.");
-//            return;
-//        } else DEBUG_PRINTLN("Finished merging");
-//    }
-//}
+#ifdef USE_SRNCP
+void command_line::pixel_srncp(std::string input_path, std::vector<std::string> input_file, std::string output, int dimx, int dimy) {
+    std::string input;
+    std::vector<std::string>::iterator file_it;
+    for (file_it = input_file.begin(); file_it != input_file.end(); ++file_it) {
+        //Assemble input file path (and try to correct errors with ending backslashes)
+        if (input_path.back() != '\\') {
+            input_path += "\\";
+        }
+        input = input_path + (*file_it);
+
+        sharedptr<row_major_float_image> wrapped_img = create_row_major_float_image(dimx, dimy);
+        wrapped_img->zero_fill();
+        this->cl_read_image(input, wrapped_img); //Read the image dependent of the image type
+
+        sharedptr<row_major_float_image> unwrapped_img = create_row_major_float_image(dimx, dimy);
+        //   sharedptr<f> unwrapped_img = create_row_major_float_image(dimx, dimy);
+
+        //     float_image * unwrapped_phi = new row_major_float_image(dimx, dimy);
+        //   sharedptr<float_image> unwrappi = boost::static_pointer_cast<float_image>(unwrapped_img);
+
+        srncp_unwrapper my_unwrapper;
+        debug_time *time = new debug_time();
+        my_unwrapper.unwrap(wrapped_img.get(), unwrapped_img.get());
+        DEBUG_PRINTLN("Pixel-based SRNCP took:");
+        time->get_time();
+        delete time;
+        //   my_unwrapper->unwrap(wrappi.get(), unwrappi.get());
+        std::string empty = "";
+
+        if (!write_image(create_filename(empty + "srncp", empty, input, output, dimx, dimy, std::vector<int>()), unwrapped_img.get())) {
+            DEBUG_PRINTLN("Error: Could not save file.");
+            return;
+        } else DEBUG_PRINTLN("Finished merging");
+    }
+}
+#else
+void command_line::pixel_srncp(std::string input_path, std::vector<std::string> input_file, std::string output, int dimx, int dimy) {
+}
+#endif
 
 void command_line::analyse(std::string method, std::string input_path, std::vector<std::string> input_file, int dimx, int dimy) {
     std::string input, input_noisy;
