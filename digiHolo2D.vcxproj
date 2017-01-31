@@ -75,6 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_PATH)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(BOOST_PATH)\lib64-msvc-14.0</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -190,7 +191,6 @@
     <ClInclude Include="include\tiles\tile_dimension_exception.h" />
     <ClInclude Include="include\tiles\tile_junction.h" />
     <ClInclude Include="include\tiles\unit_cartesian_coordinate_system.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -218,24 +218,16 @@
     <ClCompile Include="src\image\float_image.cpp" />
     <ClCompile Include="src\image\in_out.cpp" />
     <ClCompile Include="src\image\row_major_float_image.cpp" />
-    <ClCompile Include="src\image\windowfunctions.cpp" />
     <ClCompile Include="src\model\model_function.cpp" />
     <ClCompile Include="src\model\model_gradient.cpp" />
     <ClCompile Include="src\model\monomial_function.cpp" />
     <ClCompile Include="src\model\monomial_gradient.cpp" />
-    <ClCompile Include="src\octave\oct_tilebased_unwrap.cpp" />
     <ClCompile Include="src\tiles\tile.cpp" />
     <ClCompile Include="src\tiles\tiled_image.cpp" />
     <ClCompile Include="src\tiles\tilegroup.cpp" />
     <ClCompile Include="src\tiles\tile_dimension_exception.cpp" />
     <ClCompile Include="src\tiles\tile_junction.cpp" />
     <ClCompile Include="src\tiles\unit_cartesian_coordinate_system.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
