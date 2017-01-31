@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2003ADB1-F88C-4573-99D6-3577E6E26BF6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>digiHolo2D</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_PATH)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)eigen</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\algorithm\abstract_gradient_calculator.h" />
+    <ClInclude Include="include\algorithm\abstract_reliability_calculator.h" />
+    <ClInclude Include="include\algorithm\abstract_tile_merger.h" />
+    <ClInclude Include="include\algorithm\abstract_tile_unwrapper.h" />
+    <ClInclude Include="include\algorithm\abstract_unwrapper.h" />
+    <ClInclude Include="include\algorithm\grad_fit_tile_unwrapper.h" />
+    <ClInclude Include="include\algorithm\least_squares_grad_unwrapper.h" />
+    <ClInclude Include="include\algorithm\px_floodfill_sim_ann_unwrapper.h" />
+    <ClInclude Include="include\algorithm\reliability_calculator_mean_difference.h" />
+    <ClInclude Include="include\algorithm\reliability_calculator_random.h" />
+    <ClInclude Include="include\algorithm\reliability_calculator_variance.h" />
+    <ClInclude Include="include\algorithm\reliability_calculator_variance_second.h" />
+    <ClInclude Include="include\algorithm\second_order_gradient.h" />
+    <ClInclude Include="include\algorithm\simple1d_tile_merger.h" />
+    <ClInclude Include="include\algorithm\simulated_annealing_floodfill_merger.h" />
+    <ClInclude Include="include\algorithm\simulated_annealing_merger.h" />
+    <ClInclude Include="include\algorithm\srncp_tile_merger.h" />
+    <ClInclude Include="include\algorithm\strand_tile_merger.h" />
+    <ClInclude Include="include\algorithm\strand_tile_unwrapper.h" />
+    <ClInclude Include="include\algorithm\wrap.h" />
+    <ClInclude Include="include\analyse\measure_pixel_energy.h" />
+    <ClInclude Include="include\analyse\measure_psnr.h" />
+    <ClInclude Include="include\basic_includes.h" />
+    <ClInclude Include="include\command_line.h" />
+    <ClInclude Include="include\debug\debug_file_io.h" />
+    <ClInclude Include="include\debug\debug_out.h" />
+    <ClInclude Include="include\debug\debug_time.h" />
+    <ClInclude Include="include\debug\test_memory_leak.h" />
+    <ClInclude Include="include\debug\test_memory_leak_a.h" />
+    <ClInclude Include="include\debug\test_memory_leak_b.h" />
+    <ClInclude Include="include\image\col_major_image.h" />
+    <ClInclude Include="include\image\float_image.h" />
+    <ClInclude Include="include\image\in_out.h" />
+    <ClInclude Include="include\image\row_major_float_image.h" />
+    <ClInclude Include="include\model\abstract_function.h" />
+    <ClInclude Include="include\model\abstract_gradient.h" />
+    <ClInclude Include="include\model\model_function.h" />
+    <ClInclude Include="include\model\model_gradient.h" />
+    <ClInclude Include="include\model\monomial_function.h" />
+    <ClInclude Include="include\model\monomial_gradient.h" />
+    <ClInclude Include="include\tiles\abstract_coordinate_system.h" />
+    <ClInclude Include="include\tiles\tile.h" />
+    <ClInclude Include="include\tiles\tiled_image.h" />
+    <ClInclude Include="include\tiles\tilegroup.h" />
+    <ClInclude Include="include\tiles\tile_dimension_exception.h" />
+    <ClInclude Include="include\tiles\tile_junction.h" />
+    <ClInclude Include="include\tiles\unit_cartesian_coordinate_system.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\algorithm\abstract_gradient_calculator.cpp" />
+    <ClCompile Include="src\algorithm\grad_fit_tile_unwrapper.cpp" />
+    <ClCompile Include="src\algorithm\least_squares_grad_unwrapper.cpp" />
+    <ClCompile Include="src\algorithm\reliability_calculator_mean_difference.cpp" />
+    <ClCompile Include="src\algorithm\reliability_calculator_random.cpp" />
+    <ClCompile Include="src\algorithm\reliability_calculator_variance.cpp" />
+    <ClCompile Include="src\algorithm\reliability_calculator_variance_second.cpp" />
+    <ClCompile Include="src\algorithm\second_order_gradient.cpp" />
+    <ClCompile Include="src\algorithm\simple1d_tile_merger.cpp" />
+    <ClCompile Include="src\algorithm\simulated_annealing_floodfill_merger.cpp" />
+    <ClCompile Include="src\algorithm\simulated_annealing_merger.cpp" />
+    <ClCompile Include="src\algorithm\srncp_tile_merger.cpp" />
+    <ClCompile Include="src\algorithm\strand_tile_merger.cpp" />
+    <ClCompile Include="src\algorithm\strand_tile_unwrapper.cpp" />
+    <ClCompile Include="src\algorithm\wrap.cpp" />
+    <ClCompile Include="src\analyse\measure_pixel_energy.cpp" />
+    <ClCompile Include="src\analyse\measure_psnr.cpp" />
+    <ClCompile Include="src\command_line.cpp" />
+    <ClCompile Include="src\debug\debug_file_io.cpp" />
+    <ClCompile Include="src\debug\test_memory_leak.cpp" />
+    <ClCompile Include="src\image\float_image.cpp" />
+    <ClCompile Include="src\image\in_out.cpp" />
+    <ClCompile Include="src\image\row_major_float_image.cpp" />
+    <ClCompile Include="src\image\windowfunctions.cpp" />
+    <ClCompile Include="src\model\model_function.cpp" />
+    <ClCompile Include="src\model\model_gradient.cpp" />
+    <ClCompile Include="src\model\monomial_function.cpp" />
+    <ClCompile Include="src\model\monomial_gradient.cpp" />
+    <ClCompile Include="src\octave\oct_tilebased_unwrap.cpp" />
+    <ClCompile Include="src\tiles\tile.cpp" />
+    <ClCompile Include="src\tiles\tiled_image.cpp" />
+    <ClCompile Include="src\tiles\tilegroup.cpp" />
+    <ClCompile Include="src\tiles\tile_dimension_exception.cpp" />
+    <ClCompile Include="src\tiles\tile_junction.cpp" />
+    <ClCompile Include="src\tiles\unit_cartesian_coordinate_system.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
