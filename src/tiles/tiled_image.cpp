@@ -36,7 +36,7 @@ long tiled_image::get_pixel_height() const {
     return this->img_height;
 }
 
-long tiled_image::get_size_of_junction_array() const {
+size_t tiled_image::get_size_of_junction_array() const {
     return this->vc_junction_array.size();
 }
 //long tiled_image::get_size_of_tile_array() const {

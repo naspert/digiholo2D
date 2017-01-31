@@ -48,12 +48,12 @@ float reliability_calculator_variance_second::calculate_reliability(boost::share
 }
 
 void reliability_calculator_variance_second::init_junctions(sharedptr<tiled_image> ti)   {
-    long end = ti->get_size_of_junction_array();
+    auto end = ti->get_size_of_junction_array();
     if(end == 0)    {
         ti->create_all_junctions(); 
         end = ti->get_size_of_junction_array(); 
     }
-    for(int i = 0; i < end; i++)    {
+    for(auto i = 0; i < end; i++)    {
         ti->get_junction_at(i)->calc_junction_variance();
     }
 }

@@ -42,7 +42,7 @@ simulated_annealing_merger::simulated_annealing_merger(std::vector<std::string> 
             if (!value.empty()) this->merge_prior = value;
             else DEBUG_PRINTLN("Specify value simple/srncp for option pre- ...");
         } else if (option.compare("steps") == 0) {
-            this->check_steps = (!value.empty() ? boost::lexical_cast<float>(value) : 0.f);
+            this->check_steps = (!value.empty() ? boost::lexical_cast<int>(value) : 0);
         } else if (option.compare("saveinfo") == 0) {
             this->name_extended = true;
         } else if (option.compare("series") == 0) {
@@ -85,11 +85,11 @@ simulated_annealing_merger::simulated_annealing_merger(std::vector<std::string> 
         }
     }
     if (this->temperature == -1) {
-        this->temperature = 0.1;
+        this->temperature = 0.1f;
         DEBUG_PRINTLN("No temperature specified: Setting it to: " << this->temperature);
     }
     if (this->convergence_criterion == -1) {
-        this->convergence_criterion = 0.01;
+        this->convergence_criterion = 0.01f;
         DEBUG_PRINTLN("No convergence_criterion specified: Setting it to: " << this->convergence_criterion);
     }
     if (this->check_steps == -1) {
@@ -100,9 +100,6 @@ simulated_annealing_merger::simulated_annealing_merger(std::vector<std::string> 
     }
 }
 
-simulated_annealing_merger::simulated_annealing_merger() {
-    //empty
-}
 
 simulated_annealing_merger::~simulated_annealing_merger() {
     //empty
@@ -112,7 +109,7 @@ void simulated_annealing_merger::merge_tiles(sharedptr<tiled_image> ti) {
     debug_file_io * file = new debug_file_io("energy.txt");
 
     //Mersenne twister pseudorandom number generator with prime of 2^19937-1
-    boost::random::mt19937 gen((this->seed != -1) ? this->seed : std::time(NULL)); //Boost Random Generator // ternary operator
+    boost::random::mt19937 gen((this->seed != -1) ? this->seed : std::time(nullptr)); //Boost Random Generator // ternary operator
     boost::random::uniform_int_distribution<> rand_w(0, ti->get_tilecount_width() - 1);
     boost::random::uniform_int_distribution<> rand_h(0, ti->get_tilecount_height() - 1);
     boost::random::uniform_01<> dist;
@@ -136,19 +133,19 @@ void simulated_annealing_merger::merge_tiles(sharedptr<tiled_image> ti) {
     float pre_energy = 0.0f;
     float post_energy = 0.0f;
     float prob_accept = 0.0f; // Acceptance probability of step. Calculated in loop
-    float prob_add = 0.f; //  If prob_add > 0.5 => 2Pi is added to the tile, else -2Pi is added to the tile
+    float prob_add = 0.0f; //  If prob_add > 0.5 => 2Pi is added to the tile, else -2Pi is added to the tile
     long w, h;
     int steps = 0;
     sharedptr<tile> cur_tile;
 
     /* Calculate the overall "energy" of every junction in the image as squared differences */
-    long junc_arr_size = ti->get_size_of_junction_array();
+    auto junc_arr_size = ti->get_size_of_junction_array();
     if (junc_arr_size == 0) {
         ti->create_all_junctions();
         junc_arr_size = ti->get_size_of_junction_array(); //Do not delete, otherwise junc_arr_size stays zero
     }
 
-    for (int i = 0; i < junc_arr_size; i++) {
+    for (auto i = 0; i < junc_arr_size; i++) {
         total_energy += ti->get_junction_at(i)->calc_junction_squared_difference();
     }
     DEBUG_PRINTLN("Start total energy: " << total_energy);
@@ -159,8 +156,8 @@ void simulated_annealing_merger::merge_tiles(sharedptr<tiled_image> ti) {
 
         w = rand_w(gen);
         h = rand_h(gen);
-        prob_add = dist(gen);
-        prob_accept = dist(gen);
+        prob_add = static_cast<float>(dist(gen));
+        prob_accept = static_cast<float>(dist(gen));
 
         cur_tile = ti->get_tile_at(w, h);
         pre_energy = calc_energy(ti->get_neighbouring_junctions(cur_tile));

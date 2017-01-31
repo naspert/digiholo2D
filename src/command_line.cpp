@@ -108,7 +108,7 @@ bool command_line::legit_arguments(std::string method, std::string unwrapper, st
  */
 char* command_line::create_filename(std::string unwrapper, std::string merger, std::string input, std::string output, int dimx, int dimy, std::vector<int> tilecount) {
     std::string name;
-    unsigned last_slash = input.find_last_of("\\"); //TODO: Generalize for every OS -using boost::filesystem maybe?
+    auto last_slash = input.find_last_of("\\"); //TODO: Generalize for every OS -using boost::filesystem maybe?
     if (output.empty()) {
         name += (input.substr(0, last_slash));
         name += "\\Unwrapped\\";
@@ -186,8 +186,8 @@ sharedptr<abstract_tile_merger> command_line::get_merger(std::string merger, std
 
 void command_line::unwrap_and_merge(std::string unwrapper, std::vector<std::string> usettings, std::string merger, std::vector<std::string> msettings, std::string input_path, std::vector<std::string> input_file, std::string output, int dimx, int dimy, std::vector<int> tilecount, std::vector<std::string> expert_options) {
     bool timing = false;
-    float time_u = 0.f;
-    float time_m = 0.f;
+    double time_u = 0.0;
+    double time_m = 0.0;
     for (std::string option : expert_options) { //ForEach loop
         if (option.compare("t") == 0) {
             timing = true;

@@ -32,19 +32,19 @@ simulated_annealing_floodfill_merger::~simulated_annealing_floodfill_merger() {
 simulated_annealing_floodfill_merger::simulated_annealing_floodfill_merger(std::vector<std::string> msettings) {
     /* Pre-initialization of the variables with default-values */
     this->check_steps = -1;
-    this->convergence_criterion = 0.9;
-    this->good_mean = 0.1;
-    this->good_variance = 0.2;
+    this->convergence_criterion = 0.9f;
+    this->good_mean = 0.1f;
+    this->good_variance = 0.2f;
     this->merge_prior = "";
-    this->name_energy_after_merging = 0;
-    this->name_energy_prior_merging = 0;
+    this->name_energy_after_merging = 0.0f;
+    this->name_energy_prior_merging = 0.0f;
     this->name_extended = false;
     this->name_steps_to_convergence = 0;
     this->seed = -1;
     this->series_start = -1;
     this->series_steps = -1;
     this->series_stop = -1;
-    this->temperature = 0.1;
+    this->temperature = 0.1f;
 
     try {
         /* Change datatype of vc_string to map_string: option name is the key to the value being the value of the option */
@@ -151,16 +151,16 @@ void simulated_annealing_floodfill_merger::merge_tiles(sharedptr<tiled_image> ti
     sharedptr<abstract_reliability_calculator> rc(new reliability_calculator_variance());
     rc->init_junctions(ti);
 
-    long junc_arr_size = ti->get_size_of_junction_array();
+    auto junc_arr_size = ti->get_size_of_junction_array();
 
     if (junc_arr_size == 0) DEBUG_PRINTLN("No junction initiliazed. Error, should be done via rc_variance");
 
-    for (int i = 0; i < junc_arr_size; i++) {
+    for (auto i = 0; i < junc_arr_size; i++) {
         this->name_energy_prior_merging += ti->get_junction_at(i)->calc_junction_squared_difference(); //TODO: Substitute through energy from tilegroup_junctions...
     }
 
     if (this->check_steps == -1) {
-        this->check_steps = junc_arr_size / 6;
+        this->check_steps = static_cast<int>(junc_arr_size / 6);
         DEBUG_PRINTLN("step-value not specified: Setting check_steps to: " << this->check_steps);
     } else if (this->check_steps == 0) {
         this->check_steps = INT_MAX;
@@ -172,7 +172,7 @@ void simulated_annealing_floodfill_merger::merge_tiles(sharedptr<tiled_image> ti
         tg_open = tilegroup::create_new();
         tg_closed = tilegroup::create_new();
 
-        this->add_value_and_check(ti, ti->get_tile_at(iw(gen), ih(gen)), dist(gen), dist(gen), tg_open, tg_closed, rc, junc_arr_size, steps);
+        this->add_value_and_check(ti, ti->get_tile_at(iw(gen), ih(gen)), static_cast<float>(dist(gen)), static_cast<float>(dist(gen)), tg_open, tg_closed, rc, junc_arr_size, steps);
     }
     int temp_counter = 0;
 
@@ -195,7 +195,7 @@ void simulated_annealing_floodfill_merger::merge_tiles(sharedptr<tiled_image> ti
             tg_open = tilegroup::create_new();
             tg_closed = tilegroup::create_new();
 
-            add_value_and_check(ti, ti->get_tile_at(iw(gen), ih(gen)), dist(gen), dist(gen), tg_open, tg_closed, rc, junc_arr_size, ++steps);
+            add_value_and_check(ti, ti->get_tile_at(iw(gen), ih(gen)), static_cast<float>(dist(gen)), static_cast<float>(dist(gen)), tg_open, tg_closed, rc, junc_arr_size, ++steps);
             //            this->write_intermediate(ti, "t"+boost::lexical_cast<std::string>(steps));
         }
         for (long i = 0; i < junc_arr_size; i++) {
@@ -205,13 +205,13 @@ void simulated_annealing_floodfill_merger::merge_tiles(sharedptr<tiled_image> ti
     this->name_steps_to_convergence = steps;
 }
 
-void simulated_annealing_floodfill_merger::add_value_and_check(sharedptr<tiled_image> ti, sharedptr<tile> cur_tile, float prop_add, float prop_accept, sharedptr<tilegroup> tg_open, sharedptr<tilegroup> tg_closed, sharedptr<abstract_reliability_calculator> rc, long junc_arr_size, long step) {
+void simulated_annealing_floodfill_merger::add_value_and_check(sharedptr<tiled_image> ti, sharedptr<tile> cur_tile, float prop_add, float prop_accept, sharedptr<tilegroup> tg_open, sharedptr<tilegroup> tg_closed, sharedptr<abstract_reliability_calculator> rc, size_t junc_arr_size, long step) {
     this->floodfill(ti, cur_tile, tg_open, tg_closed, rc);
     //    DEBUG_PRINTLN("step: " << step << " #tg_open: " << tg_open->size() << " #tg_closed: " << tg_closed->size() << " prop_add: " << prop_add << " prop_accept: " << prop_accept << " junc_arr_size: " << junc_arr_size);
     float pre_energy = 0.0f;
     float post_energy = 0.0f;
 
-    for (long i = 0; i < junc_arr_size; i++) {
+    for (auto i = 0; i < junc_arr_size; i++) {
         pre_energy += ti->get_junction_at(i)->calc_junction_squared_difference();
     }
     if (prop_add > 0.5) {
@@ -221,7 +221,7 @@ void simulated_annealing_floodfill_merger::add_value_and_check(sharedptr<tiled_i
         tg_open->add_value(-2 * M_PI);
         tg_closed->add_value(-2 * M_PI);
     }
-    for (long i = 0; i < junc_arr_size; i++) {
+    for (auto i = 0; i < junc_arr_size; i++) {
         post_energy += ti->get_junction_at(i)->calc_junction_squared_difference();
     }
     if (prop_accept <= std::exp(-(post_energy - pre_energy) / (this->temperature - (step * this->temperature / (250 * junc_arr_size))))) {
@@ -293,7 +293,8 @@ void simulated_annealing_floodfill_merger::floodfill(sharedptr<tiled_image> ti, 
 }
 
 void simulated_annealing_floodfill_merger::recur_floodfile(sharedptr<tiled_image> ti, sharedptr<tile> t, sharedptr<tile> neighbour_tile, sharedptr<tilegroup> tg_open, sharedptr<tilegroup> tg_closed, sharedptr<abstract_reliability_calculator> rc) {
-    float accept_value = 0.2;
+    float accept_value = 0.2f
+        ;
     float mean_diff = ti->get_junction(t, neighbour_tile)->calc_junction_mean_difference();
 
     if (!neighbour_tile->has_tilegroup() && mean_diff < accept_value && mean_diff > -accept_value) {

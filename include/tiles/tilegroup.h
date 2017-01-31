@@ -54,7 +54,7 @@ public:
      * NOTE: This operation has O(n)! DO NOT USE this if possible
      * @return The number of elements in the tilegroup.
      */
-    int size();
+    size_t size();
     /**
      * Add value to all tiles in the group.
      * @param val The value to add.

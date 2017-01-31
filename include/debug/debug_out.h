@@ -24,7 +24,7 @@
 #ifndef DEBUG_OUT_HEADER_H
 #define	DEBUG_OUT_HEADER_H
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(_DEBUG)
     #ifndef QT_VERSION //Wenn kein QT verwendet wird, dann normale cout verwenden
         #include <iostream>
         #define DEBUG_PRINT(x)   std::cout<< x <<std::flush;

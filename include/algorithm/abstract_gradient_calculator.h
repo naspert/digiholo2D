@@ -25,7 +25,7 @@
 #define	ABSTRACT_GRADIENT_CALCULATOR_H
 
 #include "basic_includes.h"
-#include "Eigen/Dense"
+#include <Eigen/Dense>
 
 //FORWARD DECLARATION START
 class unit_cartesian_coordinate_system;

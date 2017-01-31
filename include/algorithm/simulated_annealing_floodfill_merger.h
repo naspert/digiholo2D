@@ -125,7 +125,7 @@ private:
      * @param junc_arr_size number of junctions
      * @param step number of steps this method has been called already
      */
-    void add_value_and_check(sharedptr<tiled_image> ti, sharedptr<tile> cur_tile,  float prop_add, float prop_accept, sharedptr<tilegroup> tg_open, sharedptr<tilegroup> tg_closed, sharedptr<abstract_reliability_calculator> rc, long junc_arr_size, long step); 
+    void add_value_and_check(sharedptr<tiled_image> ti, sharedptr<tile> cur_tile,  float prop_add, float prop_accept, sharedptr<tilegroup> tg_open, sharedptr<tilegroup> tg_closed, sharedptr<abstract_reliability_calculator> rc, size_t junc_arr_size, long step); 
     
     /**
      * Fill a tilegroup with every neighbour (and its neighbours neighbours etc.) that have no 

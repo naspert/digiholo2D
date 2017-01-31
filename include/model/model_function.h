@@ -67,7 +67,7 @@ public:
      * @param y coordinate
      * @return value of this function
      */
-    float eval(float x, float y);
+    float eval(float x, float y) override;
 
     /**
      * Evaluates the value of this function with the coefficients provided
@@ -118,13 +118,13 @@ public:
      * Get the size of the coefficients set
      * @return size of the vc_coeff
      */
-    int get_coeff_size();
+    size_t get_coeff_size();
 
     /**
      * Get the size of the base set
      * @return size of the vc_base_functions
      */
-    int get_base_size();
+    size_t get_base_size();
 
     //!Return the constant offset of this function.
     float get_constant_offset();

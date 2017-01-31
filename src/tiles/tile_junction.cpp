@@ -130,7 +130,7 @@ float tile_junction::calc_junction_variance() {
    }
    /* Calculate the median START */
    float mean = 0.0f;
-   float N = differences->size();
+   float N = static_cast<float>(differences->size());
    for (std::vector<float>::iterator it = differences->begin(); it != differences->end(); ++it) {
       mean += (*it);
    }
@@ -141,7 +141,7 @@ float tile_junction::calc_junction_variance() {
    float variance = 0.0f;
 
    for (std::vector<float>::iterator it = differences->begin(); it != differences->end(); ++it) {
-      variance += std::pow((*it) - mean, 2.0); //variance = sum of[(x - µ)^2]
+      variance += static_cast<float>(std::pow((*it) - mean, 2.0)); //variance = sum of[(x - µ)^2]
    }
    variance /= N;
    this->variance = variance;

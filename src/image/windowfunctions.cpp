@@ -8,12 +8,12 @@ const float TWOPI = 2*M_PI;
 
 float hann_window(float r)
 {
-    return 0.5*(1+cos(r*M_PI));
+    return 0.5f*(1.0f + cos(r*M_PI));
 }
 
 float pow_hann_window3(float r)
 {
-    return 0.5*(1+cos(r*M_PI))* 0.5*(1+cos(r*M_PI)) * 0.5*(1+cos(r*M_PI));
+    return 0.5f*(1.0f + cos(r*M_PI))*0.5f*(1.0f + cos(r*M_PI))*0.5f*(1.0f + cos(r*M_PI));
 }
 
 //http://de.wikipedia.org/wiki/Fensterfunktion
@@ -24,9 +24,9 @@ float pow_hann_window3(float r)
 float blackman_nuttal_window(float r)
 {
     const float a0 = 0.35875f;
-    const float a1 = 0.48829;
-    const float a2 = 0.14128;
-    const float a3 = 0.01168;
+    const float a1 = 0.48829f;
+    const float a2 = 0.14128f;
+    const float a3 = 0.01168f;
     
     return 1.f-(a0 -a1*cos(M_PI*r)+a2*cos(2*M_PI*r)-a3*cos(3*M_PI*r));
     //return a0-a1*cos(M_PI*(1.f-r))+a2*cos(2*M_PI*(1.f-r))-a3*cos(3*M_PI*(1.f-r));

@@ -64,7 +64,7 @@ private:
      * Warning: Inconsistencies in the top left corner a criticial to this approach!
      * @return offset
      */
-    float offset();
+    double offset();
     
     /**
      * Calculate the mean of the block (0 - w,0 - h) of the image img
@@ -74,7 +74,7 @@ private:
      * @param img image
      * @return mean of block (w,h)
      */
-    float mean_of_block(long w, long h, sharedptr<row_major_float_image> img);
+    double mean_of_block(long w, long h, sharedptr<row_major_float_image> img);
     
 };
 

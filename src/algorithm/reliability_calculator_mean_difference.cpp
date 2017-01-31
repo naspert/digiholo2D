@@ -55,7 +55,7 @@ float reliability_calculator_mean_difference::calculate_reliability(boost::share
 }
 
 float reliability_calculator_mean_difference::reliability_function(float value) {
-    return std::pow(cos(value / 2), 8.0); //1: best, 0: worst differences
+    return static_cast<float>(std::pow(cos(value / 2), 8)); //1: best, 0: worst differences
     /* The function (cos(x/2))^4 was chosen because of it having its maxima at multiples of 2pi
      * and minima at (2n+1)pi (n integer). The power of 4 was chosen so that the function has 
      * steeper peaks, therefore only a small amount of values are receiving values near 1.
@@ -72,12 +72,12 @@ float reliability_calculator_mean_difference::reliability_function(float value) 
 }
 
 void reliability_calculator_mean_difference::init_junctions(sharedptr<tiled_image> ti) {
-    long end = ti->get_size_of_junction_array();
+    auto end = ti->get_size_of_junction_array();
     if (end == 0) {
         ti->create_all_junctions();
         end = ti->get_size_of_junction_array();
     }
-    for (int i = 0; i < end; i++) {
+    for (auto i = 0; i < end; i++) {
         ti->get_junction_at(i)->calc_junction_mean_difference();
     }
 }

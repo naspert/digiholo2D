@@ -101,10 +101,10 @@ void srncp_tile_merger::initialise_merger(sharedptr<tiled_image> ti, sharedptr<s
      */
     ti->create_all_junctions();
     sharedptr<tile_junction> temp_junc;
-    long junc_arr_size = ti->get_size_of_junction_array(); 
+    auto junc_arr_size = ti->get_size_of_junction_array(); 
     rc->init_junctions(ti); 
 
-    for (long i = 0; i < junc_arr_size; i++) { //No iterator, because sti returns only single elements, no iterator nor complete vector
+    for (auto i = 0; i < junc_arr_size; i++) { //No iterator, because sti returns only single elements, no iterator nor complete vector
         temp_junc = ti->get_junction_at(i);
         junc_rel->insert(std::make_pair(this->rc->calculate_reliability(ti, temp_junc), temp_junc));
 //        DEBUG_PRINTLN(this->rc->calculate_reliability(ti, temp_junc)); 

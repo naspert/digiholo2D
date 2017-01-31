@@ -25,7 +25,7 @@ strand_tile_unwrapper::strand_tile_unwrapper(std::vector<std::string> usettings)
             if (option.compare("steps") == 0) {
                 this->N_rho = boost::lexical_cast<int>(value);
             } else if (option.compare("help") == 0) {
-                this->usage_help();
+                strand_tile_unwrapper::usage_help();
             } else {
                 DEBUG_PRINTLN("Option \"" << option << "\" not supported. Please use steps-5 (value arbitrary).");
             }
@@ -42,20 +42,20 @@ void strand_tile_unwrapper::unwrap(boost::shared_ptr<tile> t) {
 
     float min_rho_pos = 0.0f;
     float temp_norm = FLT_MAX;
-    const float EPSILON = 0.01;
+    const float EPSILON = 0.01f;
     float min_val = abs_diff_norm(t, temp_norm);
     
     
     //Erhöhe cur_rho um delta_rho Schritte von ~0 bis 2Pi
     for (int i = 1; i <= this->N_rho; i++)
     {
-        t->rewrap((float)(i) * delta_rho);
+        t->rewrap(i * delta_rho);
         temp_norm = abs_diff_norm(t, min_val);
         
         if (temp_norm < min_val) 
         { //Wenn aktueller Wert besser: Setze Minimum-Variablen
             min_val = temp_norm;
-            min_rho_pos = float(i) * delta_rho;
+            min_rho_pos = i * delta_rho;
             
             //!@todo remove this hack. Problem with non-constant runtime (?)
             //@todo wieder rein? THIS CAN LEAD TO NON CONSTANT RUNTIME!!! 
@@ -65,7 +65,7 @@ void strand_tile_unwrapper::unwrap(boost::shared_ptr<tile> t) {
 //                return;
 //            }
         }
-        t->rewrap(-float(i) * delta_rho);
+        t->rewrap(-i * delta_rho);
     }
     t->rewrap(min_rho_pos);
     //    DEBUG_PRINTLN(min_rho_pos/delta_rho); 
@@ -76,9 +76,9 @@ float strand_tile_unwrapper::abs_diff_norm(boost::shared_ptr<tile> t, float cur_
     float sum_w = 0.f;
 
     long width = t->get_width();
-    float one_over_w = 1.f / ((float) width);
+    float one_over_w = 1.f / width;
     long height = t->get_height();
-    float one_over_h = 1.f / ((float) height);
+    float one_over_h = 1.f / height;
 
     for (long ih = 0; ih < height; ih++) {
         for (long iw = 0; iw < width - 1; iw++) {

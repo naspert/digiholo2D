@@ -9,8 +9,8 @@ tilegroup::~tilegroup() {
 }
 
 //O(n)! @todo: make O(1) by saving the number of elements. Make sure number of Elements cannot be changed any other way.
-int tilegroup::size() {
-    return std::distance(this->fl_ptr_tiles.begin(), this->fl_ptr_tiles.end());
+size_t tilegroup::size() {
+    return static_cast<size_t>(std::distance(this->fl_ptr_tiles.begin(), this->fl_ptr_tiles.end()));
 }
 
 void tilegroup::add_value(float value) {

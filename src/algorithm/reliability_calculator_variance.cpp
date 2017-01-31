@@ -27,7 +27,7 @@ float reliability_calculator_variance::calculate_reliability(boost::shared_ptr<t
     vc_junc.push_back(ti->get_junction(t, tile::RIGHT));
 
     float sum_variance = 0.f;
-    float num_junctions = 0.f;
+    int num_junctions = 0;
     for (sharedptr<tile_junction> junction : vc_junc) {
         if (junction)
         {
@@ -48,12 +48,12 @@ float reliability_calculator_variance::calculate_reliability(boost::shared_ptr<t
 }
 
 void reliability_calculator_variance::init_junctions(sharedptr<tiled_image> ti) {
-    long end = ti->get_size_of_junction_array();
+    auto end = ti->get_size_of_junction_array();
     if (end == 0) {
         ti->create_all_junctions();
         end = ti->get_size_of_junction_array();
     }
-    for (int i = 0; i < end; i++) {
+    for (auto i = 0; i < end; i++) {
         ti->get_junction_at(i)->calc_junction_variance();
     }
 }

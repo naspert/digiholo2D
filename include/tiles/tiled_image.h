@@ -126,7 +126,7 @@ public:
     long get_pixel_height() const;
 
     //returns size of junction array
-    long get_size_of_junction_array() const;
+    size_t get_size_of_junction_array() const;
     //returns size of tile array
     //    long get_size_of_tile_array() const;
 

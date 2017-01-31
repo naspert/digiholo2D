@@ -102,11 +102,11 @@ void model_function::set_coeff_vector(sharedptr<Eigen::VectorXf> vxf) {
    this->vc_coeff = to_std_vector(vxf);
 }
 
-int model_function::get_base_size() {
+size_t model_function::get_base_size() {
    return this->vc_base_functions->size();
 }
 
-int model_function::get_coeff_size() {
+size_t model_function::get_coeff_size() {
    return this->vc_coeff->size();
 }
 
@@ -158,10 +158,10 @@ void model_function::subtract_wrap_add_function(sharedptr<tile> t, int step_coun
 /////////////////////////////////////////////////////////////////////////////////
 
 sharedptr<std::vector<float> > to_std_vector(sharedptr<Eigen::VectorXf> vecxf) {
-   long N = vecxf->size(); //number of elements in vector
+   auto N = vecxf->size(); //number of elements in vector
    sharedptr<std::vector<float> > stdvec(new std::vector<float>(N));
 
-   for (int i = 0; i < N; i++) {
+   for (auto i = 0; i < N; i++) {
       (*stdvec)[i] = (*vecxf)(i);
    }
 
